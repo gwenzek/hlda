@@ -16,6 +16,7 @@ LOBJECTS = utils.o topic.o doc.o hyperparameter.o main.o gibbs.o
 
 model=model
 data=../jacm/jacm
+iter=001000
 
 main:	$(LOBJECTS)
 	$(CC) $(CFLAGS) $(LOBJECTS) -o main $(LDFLAGS)
@@ -37,7 +38,7 @@ train: $(model)
 $(model): $(data).dat settings-d4.txt
 	./main gibbs $^ $@
 
-tree: tree.txt
+tree: tree.$(iter).txt
 
-tree.txt:
-	python tree.py txt $(model)/run000/iter=001000 $(data).voc.txt $(data).txt tree.txt
+tree.$(iter).txt:
+	python tree.py txt $(model)/run000/iter=$(iter) $(data).voc.txt $(data).txt tree.$(iter).txt
